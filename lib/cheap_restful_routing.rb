@@ -6,5 +6,6 @@ class ActionController::Routing::RouteSet::Mapper
     connect ':controller/:id', :action => :destroy, :conditions => { :method => :delete }
     connect ':controller', :action => :index, :conditions => { :method => :get }
     connect ':controller', :action => :create, :conditions => { :method => :post }
+    connect ':controller/:action/:id'
   end
 end
