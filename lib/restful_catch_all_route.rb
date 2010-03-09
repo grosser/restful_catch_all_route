@@ -1,5 +1,5 @@
 class ActionController::Routing::RouteSet::Mapper
-  def simple_restful_routing (options={})
+  def restful_catch_all_route(options={})
     id_rexp = options[:id] || /[^-\/]*-[^\/]*|\d+/
     connect '/:controller', :action => :index, :conditions => { :method => :get }
     connect '/:controller', :action => :create, :conditions => { :method => :post }

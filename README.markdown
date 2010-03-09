@@ -1,7 +1,7 @@
-Simple Restful Routing: one rule, no helpers, no worries.
+One rule, no worries.
 
- - any new resource simply works
- - any new action (aka collection/member) simply works, without declaring it first
+ - all resource routes are catched
+ - no actions (aka collection/member) need to be added
  - no _url / _path / _hash helpers in global namespace
  - fallback to resources for edge-cases (e.g. nesting)
 
@@ -9,13 +9,13 @@ Install
 =======
 **No big testing done, the basics work, gimme feedback on what does not**
 
-    script/plugins install git://github.com/grosser/simple_restful_routing.git
+    script/plugins install git://github.com/grosser/restful_catch_all_route.git
 
 Usage
 =====
 To enable resourceful routing add:
     # routes.rb
-    map.simple_restful_routing
+    map.restful_catch_all_route
     map.connect ':controller/:action/:id' # if you need it, place it behind
 
 ### Id formats

@@ -5,7 +5,7 @@ require 'action_pack'
 require 'action_controller'
 begin; require 'redgreen'; rescue LoadError; end
 $LOAD_PATH << 'lib'
-require 'simple_restful_routing'
+require 'restful_catch_all_route'
 
 ActionController::Base.logger = nil
 ActionController::Routing::Routes.reload!
@@ -13,7 +13,7 @@ ActionController::Routing::Routes.reload!
 ActionController::Routing.use_controllers!(['cheap'])
 
 ActionController::Routing::Routes.draw do |map|
-  map.simple_restful_routing
+  map.restful_catch_all_route
   map.connect ':controller/:action/:id'
 end
 
