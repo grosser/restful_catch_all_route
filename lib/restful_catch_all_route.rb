@@ -1,3 +1,4 @@
+# rails 3 ActionDispatch::Routing::Mapper ?
 class ActionController::Routing::RouteSet::Mapper
   def restful_catch_all_route(options={})
     id_rexp = options[:id] || /[^-\/]*-[^\/]*|\d+/

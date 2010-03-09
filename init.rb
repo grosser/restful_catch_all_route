@@ -1,0 +1,1 @@
+require 'restful_catch_all_route'
