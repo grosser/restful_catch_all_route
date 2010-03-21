@@ -1,10 +1,13 @@
-One rule, no worries. (only Rails 2.3 for now...)
+One rule, no worries (Rails 2 + 3)
 
  - resources like normal (get:show, put:update, delete:destroy, post:create, edit, new, index, etc.)
  - no resources need to be added
  - no actions (aka collection/member) need to be added
  - no _url / _path / _hash helpers in global namespace
+ - `form_for @user` / `link_to xxx, @user` / `polymorphic_url @user` like normal
  - you can always add normal resources for edge-cases (e.g. nesting)
+ - [restful catch all route example app](http://github.com/grosser/restful_catch_all_route_example)
+
 
 Install
 =======
@@ -14,18 +17,24 @@ Install
     # config/routes.rb
     map.restful_catch_all_route
 
-    # if you need it, it must be placed after restful catch all
+    # if you need REST-less fallback urls, they must be placed after restful catch all
     # map.connect ':controller/:action/:id'
 
 Usage
 =====
 
-    Before:
-      link_to 'foo', new_bar_path
+    # like normal:
+    form_for @user
+    link_to 'hey', @user
+    polymorphic_url(@user)
 
-    After:
-      link_to 'foo', '/bar/new'
-      link_to 'foo', :controller => 'bar', :action => 'new'
+    # changed:
+    link_to 'foo', new_users_path
+
+    # is now...
+    link_to 'foo', '/users/new'
+    link_to 'foo', :controller => 'users', :action => 'new'
+
 
 ### Id formats
 By default it accepts ids that are pure numbers, or contain a '-'.  
