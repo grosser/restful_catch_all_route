@@ -1,13 +1,19 @@
-One rule, no worries (Rails 2 + 3)
+<del>map.resources :user</del><br />
+<del>map.resources :products, :member => {:goto => :get, :bar => :get}</del><br />
+<del>map.resources :ads, :collection => {:search => :get, :preview => :get}</del><br />
+<del>map.resources :lists, :member => {:something => :post}</del><br />
+<del>map.resources :toys, :collection => {:foo => :put}</del><br />
+<del>map.resources :sounds</del><br />
+...<br/>
+<b>map.restful_catch_all_route</b>
 
- - resources like normal (get:show, put:update, delete:destroy, post:create, edit, new, index, etc.)
- - no resources need to be added
- - no actions (aka collection/member) need to be added
- - no _url / _path / _hash helpers in global namespace
- - `form_for @user` / `link_to xxx, @user` / `polymorphic_url @user` like normal
- - you can always add normal resources for edge-cases (e.g. nesting)
+(For Rails 2 and 3)
+
+ - REST like normal (/users <-> index+create, /users/1 <-> show+update+destroy, /users/1/edit, /users/new )
+ - collection and members map automatically (/users/search, /users/1/add)
+ - `_url` / `_path` / `_hash` helper free global namespace
+ - fallback to `map.resources` for edge-cases like nesting
  - [restful catch all route example app](http://github.com/grosser/restful_catch_all_route_example)
-
 
 Install
 =======
