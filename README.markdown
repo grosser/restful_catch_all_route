@@ -12,7 +12,7 @@
  - REST like normal (/users <-> index+create, /users/1 <-> show+update+destroy, /users/1/edit, /users/new )
  - collection and members map automatically (/users/search, /users/1/add)
  - `_url` / `_path` / `_hash` helper free global namespace
- - fallback to `map.resources` for edge-cases like nesting
+ - fallback to `map.resources` for e.g. nested resources
  - [restful catch all route example app](http://github.com/grosser/restful_catch_all_route_example)
 
 Install
@@ -22,6 +22,10 @@ Install
 
     # config/routes.rb
     map.restful_catch_all_route
+
+    namespace(:admin) do |admin|
+      map.restful_catch_all_route  
+    end
 
     # if you need REST-less fallback urls, they must be placed after restful catch all
     # map.connect ':controller/:action/:id'
@@ -33,13 +37,20 @@ Usage
     form_for @user
     link_to 'hey', @user
     polymorphic_url(@user)
+    polymorphic_url([:admin, @user])
 
     # changed:
     link_to 'foo', new_users_path
+    link_to 'edit foo', edit_user_path(user)
 
-    # is now...
+    # is now one of these ...
     link_to 'foo', '/users/new'
     link_to 'foo', :controller => 'users', :action => 'new'
+    link_to 'foo', polymorphic_url(User, :action => :new)
+
+    link_to 'edit foo', "/users/edit/#{user.id}"
+    link_to 'edit foo', :controller => :users, :action => :edit, :id => user.id
+    link_to 'edit foo', polymorphic_url(user, :action => :edit)
 
 
 ### Id formats
