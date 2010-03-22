@@ -24,7 +24,7 @@ Install
     map.restful_catch_all_route
 
     namespace(:admin) do |admin|
-      map.restful_catch_all_route  
+      admin.restful_catch_all_route  
     end
 
     # if you need REST-less fallback urls, they must be placed after restful catch all
