@@ -34,23 +34,19 @@ Usage
 =====
 
     # like normal:
+    url_for(@user) <-> show
+    url_for(User) <-> index
+    url_for([:admin, @user]) <-> with namespace
+    ...
     form_for @user
     link_to 'hey', @user
     polymorphic_url(@user)
-    polymorphic_url([:admin, @user])
 
-    # changed:
-    link_to 'foo', new_users_path
-    link_to 'edit foo', edit_user_path(user)
-
-    # is now one of these ...
-    link_to 'foo', '/users/new'
-    link_to 'foo', :controller => 'users', :action => 'new'
-    link_to 'foo', polymorphic_url(User, :action => :new)
-
-    link_to 'edit foo', "/users/edit/#{user.id}"
-    link_to 'edit foo', :controller => :users, :action => :edit, :id => user.id
-    link_to 'edit foo', polymorphic_url(user, :action => :edit)
+    # instead of edit_user_path(user):
+    "/users/edit/#{user.id}"
+    url_for(user)+'/edit'
+    polymorphic_url(user, :action => :edit)
+    :controller => :users, :action => :edit, :id => user.id
 
 
 ### Id formats
