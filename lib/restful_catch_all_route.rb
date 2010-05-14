@@ -35,7 +35,7 @@ module ActionController::PolymorphicRoutes
       options.delete(:routing_type)
 
       # match action+controller+path/url from missing method
-      model_name = (model.is_a?(Class) ? model : model.class).class_name.underscore
+      model_name = (model.is_a?(Class) ? model : model.class).name.underscore
       raise error unless error.to_s =~ /\W((\w+?)_)?(#{model_name}|#{model_name.pluralize})_(path|url)\W/
       options.reverse_merge!(:only_path => ($4 == 'path'))
 
