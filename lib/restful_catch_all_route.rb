@@ -7,12 +7,15 @@ end
 klass.class_eval do
   def restful_catch_all_route(options={})
     id_rexp = options[:id] || /[^-\/]*-[^\/]*|\d+/
+    id_rexp = /.*/ if id_rexp == // # we need match data!
+    req = {:requirements => { :id => id_rexp }}
+
     connect '/:controller', :action => :index, :conditions => { :method => :get }
     connect '/:controller', :action => :create, :conditions => { :method => :post }
-    connect '/:controller/:id', :action => :show, :conditions => { :method => :get }, :requirements => { :id => id_rexp }
-    connect '/:controller/:id', :action => :update, :conditions => { :method => :put }, :requirements => { :id => id_rexp }
-    connect '/:controller/:id', :action => :destroy, :conditions => { :method => :delete }, :requirements => { :id => id_rexp }
-    connect '/:controller/:id/:action', :requirements => { :id => id_rexp } # member
+    connect '/:controller/:id', req.merge(:action => :show, :conditions => { :method => :get })
+    connect '/:controller/:id', req.merge(:action => :update, :conditions => { :method => :put })
+    connect '/:controller/:id', req.merge(:action => :destroy, :conditions => { :method => :delete })
+    connect '/:controller/:id/:action', req # member
     connect '/:controller/:action' # collection
   end
 end
