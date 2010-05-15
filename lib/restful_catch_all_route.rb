@@ -20,6 +20,28 @@ klass.class_eval do
   end
 end
 
+
+# for Rails3 mapper, does not seem to work with namespaces yet,
+# use map.restful_catch_all_route !!
+if defined?(ActionDispatch::Routing::Mapper)
+  class ActionDispatch::Routing::Mapper
+    def restful_catch_all_route(options={})
+      id_rexp = options[:id] || /[^-\/]*-[^\/]*|\d+/
+      id_rexp = /.*/ if id_rexp == // # we need match data
+      req = {:constraints => { :id => id_rexp}}
+
+      match ':controller/:id', {:to  => ":controller#show", :via => :get}.merge(req)
+      match ':controller/:id', {:to  => ":controller#update", :via => :put}.merge(req)
+      match ':controller/:id', {:to  => ":controller#destroy", :via => :delete}.merge(req)
+      match ':controller', :to => ":controller#index", :via => :get
+      match ':controller', :to => ":controller#create", :via => :post
+      match ':controller/:id/:action', req # any member
+      match ':controller/:action' # any collection
+    end
+  end
+end
+
+
 # if something like `unknown method 'users_path'` is raised
 # convert it into :controller => :users
 module ActionController::PolymorphicRoutes
